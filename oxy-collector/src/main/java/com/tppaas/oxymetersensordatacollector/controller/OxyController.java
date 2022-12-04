@@ -1,0 +1,27 @@
+package com.tppaas.oxymetersensordatacollector.controller;
+
+import com.tppaas.oxymetersensordatacollector.entities.OxyVal;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("")
+public class OxyController {
+
+    @Autowired
+    private RabbitTemplate template;
+
+    @Autowired
+    private Queue queue1;
+
+    @PostMapping("")
+    public OxyVal registerOxy(@RequestBody OxyVal oxyval) {
+        template.convertAndSend(queue1.getName(), oxyval);
+        return oxyval;
+    }
+}
