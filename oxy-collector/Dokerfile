@@ -1,0 +1,3 @@
+FROM openjdk:8-jdk-alpine
+COPY target/oxymeter-sensor-data-collector.0.0.1.jar oxymeter-sensor-data-collector.0.0.1.jar
+ENTRYPOINT ["java","-jar","/oxymeter-sensor-data-collector.0.0.1.jar"]

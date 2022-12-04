@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.tppaas</groupId>
     <artifactId>oxymeter-sensor-data-collector</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-</version>
     <name>oxymeter-sensor-data-collector</name>
     <description>oxymeter-sensor-data-collector</description>
     <properties>
