@@ -19,9 +19,19 @@ public class HeartController {
     @Autowired
     private Queue queue1;
 
+    @Autowired
+    private Queue queue2;
+
     @PostMapping("")
     public HeartRateVal registerOxy(@RequestBody HeartRateVal heartRateVal) {
         template.convertAndSend(queue1.getName(), heartRateVal);
+        if(heartRateVal.getBPM()>100 || heartRateVal.getBPM()<60){
+            heartRateVal.setEmergency(true);
+            template.convertAndSend(queue2.getName(), heartRateVal);
+        }
+        else{
+            heartRateVal.setEmergency(false);
+        }
         return heartRateVal;
     }
 }

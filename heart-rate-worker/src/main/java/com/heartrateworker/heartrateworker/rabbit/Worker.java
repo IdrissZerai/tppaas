@@ -16,9 +16,10 @@ public class Worker {
     @Autowired
     private HeartService heartService;
 
-    @RabbitListener(queues = "queue_oxy")
+    @RabbitListener(queues = "queue_heart")
     public void receive(HeartRateVal heartRateVal){
-        log.info("Received oxy value: " + heartRateVal);
+        log.info("Received heartrate value: " + heartRateVal);
         heartService.save(heartRateVal);
+        log.info("Registred: " +heartRateVal );
     }
 }

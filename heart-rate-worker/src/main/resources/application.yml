@@ -1,0 +1,16 @@
+spring:
+  rabbitmq:
+    host: host.docker.internal
+    port: 5672
+  data:
+    mongodb:
+      host: host.docker.internal
+      port: 27017
+      database: tparchi
+
+logging:
+  level:
+    org: ERROR
+
+server:
+  port: 8051

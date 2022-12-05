@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: host.docker.internal
+    username: postgres
+    password: postgres
+
