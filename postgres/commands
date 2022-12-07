@@ -1,0 +1,42 @@
+
+// Creating node 1
+
+docker run --name pg_node_1 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -p 6551:5432 -d postgres
+
+// creating node 2
+docker run --name pg_node_2 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -p 6552:5432 -d postgres
+
+
+// Access the container
+docker exec -ti pg_node_1 bash
+docker exec -ti pg_node_2 bash
+
+
+
+// login
+docker exec -ti pg_node_1 bash
+
+// update the apt repository
+apt-get update
+
+// Install the openssh client
+apt-get install -y openssh-server openssh-client
+
+// Changing the permission for ssh
+sed -i 's|^PermitRootLogin.*|PermitRootLogin yes|g' /etc/ssh/sshd_config$ sed -i 's|^#PermitRootLogin.*|PermitRootLogin yes|g' /etc/ssh/sshd_config
+
+//start the service
+service ssh start
+
+// change the password
+passwd
+
+docker run -d --name clustercontrol -p 5000:80 severalnines/clustercontrol
+
+// cluster control url: http://host.docker.internal:5000/clustercontrol
+
+
+// loging to clustercontrol
+docker exec -it clustercontrol bash// copy the keys
+ssh-copy-id 172.17.0.3 <url node 1>
+ssh-copy-id 172.17.0.4 <url node 2>

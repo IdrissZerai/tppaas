@@ -10,10 +10,10 @@ services:
     image: mongo:latest
     ports:
       - 27017:27017
-  postgresql_container:
-    image: postgres:latest
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - 5432:5432
+#  postgresql_container:
+#    image: postgres:latest
+#    environment:
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+#    ports:
+#      - 5432:5432
