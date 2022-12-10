@@ -3,6 +3,7 @@ package com.tppaas.notificationmanager.controller;
 import com.tppaas.notificationmanager.entities.Coach;
 import com.tppaas.notificationmanager.entities.Emergency;
 import com.tppaas.notificationmanager.repo.CoachService;
+import com.tppaas.notificationmanager.websocket.SocketController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,9 @@ import java.util.List;
 public class NotiManagerController {
 
     @Autowired
+    private SocketController socketController;
+
+    @Autowired
     private CoachService coachService;
 
     @PostMapping()
@@ -27,8 +31,8 @@ public class NotiManagerController {
 
     @PostMapping("/notify")
     public Emergency notify(@RequestBody Emergency emergency){
-        Iterable<Coach> coaches = coachService.getAvailable();
-        //TODO : websocket for mobile client
+        //Iterable<Coach> coaches = coachService.getAvailable();
+        socketController.send(emergency);
         return emergency;
     }
 }
