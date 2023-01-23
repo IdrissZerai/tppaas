@@ -3,6 +3,7 @@ package com.tppaas.tppaasapk
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.tppaas.tppaasapk.entities.Emergency
@@ -12,9 +13,11 @@ import java.net.URI
 
 class MainActivity : AppCompatActivity() {
     private lateinit var webSocketClient: WebSocketClient
+    val textView: TextView = findViewById<TextView>(R.id.coach_emergency)
+
 
     companion object {
-        const val WEB_SOCKET_URL = "ws://host.docker.internal:8080/topic/emergency"
+        const val WEB_SOCKET_URL = "ws://host.docker.internal:8031/topic/emergency"
         const val TAG = "EMERGENCY"
     }
     override fun onResume() {
@@ -65,9 +68,9 @@ class MainActivity : AppCompatActivity() {
             val moshi = Moshi.Builder().build()
             val adapter: JsonAdapter<Emergency> = moshi.adapter(Emergency::class.java)
             val emergency = adapter.fromJson(message)
-            runOnUiThread {coach_emergency.text = "Emergency type: ${emergency?.type} " }
+            textView.text = "Emergency type: ${emergency?.type} "
+            //runOnUiThread {coach_emergency.text = "Emergency type: ${emergency?.type} " }
         }
-
     }
 
     private fun subscribe() {
