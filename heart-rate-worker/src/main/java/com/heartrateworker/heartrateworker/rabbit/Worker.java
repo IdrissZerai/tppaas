@@ -1,6 +1,7 @@
 package com.heartrateworker.heartrateworker.rabbit;
 
 import com.heartrateworker.heartrateworker.entities.HeartRateVal;
+import com.heartrateworker.heartrateworker.repository.HeartDynamoRepo;
 import com.heartrateworker.heartrateworker.repository.HeartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +17,22 @@ public class Worker {
     @Autowired
     private HeartService heartService;
 
+    @Autowired
+    private HeartDynamoRepo heartDynamoRepo;
+
     @RabbitListener(queues = "queue_heart")
     public void receive(HeartRateVal heartRateVal){
         log.info("Received heartrate value: " + heartRateVal);
         heartService.save(heartRateVal);
+        heartDynamoRepo.save(heartRateVal);
+        log.info("Registred: " +heartRateVal );
+    }
+
+    @RabbitListener(queues = "queue_heart_emergency")
+    public void receive2(HeartRateVal heartRateVal){
+        log.info("Received emergency heartrate value: " + heartRateVal);
+        heartService.save(heartRateVal);
+        heartDynamoRepo.save(heartRateVal);
         log.info("Registred: " +heartRateVal );
     }
 }

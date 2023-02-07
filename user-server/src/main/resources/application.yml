@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: host.docker.internal
+    url: host.docker.internal:6550
     username: postgres
     password: postgres
+
 

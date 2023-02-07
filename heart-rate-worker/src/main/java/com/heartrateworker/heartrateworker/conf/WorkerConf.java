@@ -9,8 +9,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WorkerConf {
     @Bean
-    public Queue queue_oxy(){
-        return new Queue("queue_oxy");
+    public Queue queue_heart(){
+        return new Queue("queue_heart");
+    }
+
+
+    @Bean
+    public Queue queue2() {
+        return new Queue("queue_heart_emergency");
     }
 
     @Bean

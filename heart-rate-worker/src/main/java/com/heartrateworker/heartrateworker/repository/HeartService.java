@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 public  class HeartService {
 
     @Autowired
-    HeartRepo oxyrepo;
+    HeartRepo heartRepo;
 
     public HeartRateVal save(HeartRateVal heartRateVal){
-        return oxyrepo.save(heartRateVal);
+        return heartRepo.save(heartRateVal);
     }
 }
